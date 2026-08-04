@@ -1,29 +1,36 @@
-# DevFinance 💰
+# 🚀 Formação Vibe Coding (Hora de Codar)
 
-Um dashboard inteligente de finanças pessoais desenvolvido durante o curso da escola **Hora de Codar**, utilizando a metodologia de **Vibe Coding** com o Google Antigravity.
+Repositório dedicado ao armazenamento de projetos, práticas e exercícios desenvolvidos ao longo da **Formação Vibe Coding** da escola Hora de Codar.
 
-## 🚀 Tecnologias Utilizadas
-
-- **Next.js 14** (App Router)
-- **PostgreSQL** + **Prisma ORM**
-- **NextAuth.js (Auth.js v5)** para autenticação
-- **Tailwind CSS** + **shadcn/ui** para estilização e componentes
-- **Recharts** para gráficos interativos (Pizza e Barras)
-- **Vercel AI SDK** para integração com Inteligência Artificial (Claude, OpenAI, Gemini)
-
-## ✨ Funcionalidades
-
-- **Dashboard Completo:** Visão geral com saldo, receitas, despesas e economia do mês.
-- **Gráficos Dinâmicos:** Acompanhamento visual de gastos por categoria (Donut) e evolução semestral (Barras).
-- **CRUD de Transações e Categorias:** Controle total sobre os registros e classificações.
-- **Insights da IA:** Análise financeira automática através de Inteligência Artificial usando a metodologia *Bring Your Own Key (BYOK)*, onde o usuário fornece sua própria chave de API de forma segura (criptografada em AES-256 no banco de dados).
-- **Dark Mode:** Suporte nativo a temas claros e escuros usando tokens de design.
-
-## 🎓 Sobre o Projeto
-
-Este projeto foi construído seguindo rigorosamente princípios arquiteturais modernos, incluindo o uso exclusivo de Server Actions para mutações no banco de dados, validação forte com Zod, cálculos precisos lidando com centavos para evitar erros de ponto flutuante, e um sistema robusto de isolamento de dados por usuário.
-
-> **Nota:** Para explorar todo o planejamento e evolução da arquitetura do projeto, consulte o arquivo [`PROJECT.md`](./PROJECT.md).
+O objetivo deste espaço é registrar a minha evolução prática na construção de aplicações modernas utilizando metodologias de **Vibe Coding**, orquestração de Agentes de IA e desenvolvimento FullStack com foco em alta performance e qualidade arquitetural.
 
 ---
-*Desenvolvido com o poder do Vibe Coding e Antigravity.*
+
+## 📚 Módulos & Projetos
+
+| Módulo / Ferramenta | Projeto | Descrição | Status |
+| :--- | :--- | :--- | :--- |
+| **Fundamentos do Antigravity** | [`01-devfinance`](./01-devfinance) | Dashboard de Finanças Pessoais com IA, gráficos interativos e autenticação | 🏗️ Em desenvolvimento |
+| **Fundamentos do Claude Code** | *A definir* | Práticas do módulo Claude Code | ⏳ Em breve |
+| **Fundamentos do Lovable** | *A definir* | Práticas do módulo Lovable | ⏳ Em breve |
+
+---
+
+## 🛠️ Tecnologias e Ecossistema
+
+- **Frameworks & Linguagens:** Next.js (App Router), TypeScript, React, Tailwind CSS
+- **Banco de Dados & ORM:** PostgreSQL, Prisma ORM
+- **Agentes & IA:** Antigravity, Claude Code, Lovable, Google Gemini / Claude API
+- **Infraestrutura & Ferramentas:** Docker, Git/GitHub, Vercel, shadcn/ui
+
+---
+
+## ⚙️ Como Navegar pelo Repositório
+
+Cada projeto possui sua própria subpasta independente com código-fonte, arquivos de configuração e documentação dedicada. Para rodar um projeto específico, navegue até a pasta do módulo e siga as instruções do `README.md` interno:
+
+```bash
+cd 01-devfinance
+npm install
+npm run dev
+```
