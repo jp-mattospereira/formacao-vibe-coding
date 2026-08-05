@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 export function CtaSection() {
   return (
@@ -17,11 +18,9 @@ export function CtaSection() {
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
             Junte-se a milhares de pessoas que já assumiram o controle do seu dinheiro. A criação da conta leva menos de 1 minuto e é totalmente gratuita.
           </p>
-          <Button size="lg" className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white text-lg h-14 px-8" asChild>
-            <Link href="/cadastro">
-              Criar minha conta agora
-            </Link>
-          </Button>
+          <Link href="/cadastro" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white text-lg h-14 px-8")}>
+            Criar minha conta agora
+          </Link>
         </div>
       </div>
     </section>

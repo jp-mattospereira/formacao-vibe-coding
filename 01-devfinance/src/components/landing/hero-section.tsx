@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Button } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { ArrowRight, BarChart3, PieChart, Sparkles } from "lucide-react";
 
 export function HeroSection() {
@@ -29,16 +30,12 @@ export function HeroSection() {
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Button size="lg" className="w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white gap-2" asChild>
-              <Link href="/cadastro">
-                Começar gratuitamente <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" className="w-full sm:w-auto border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none hover:bg-foreground/5" asChild>
-              <Link href="/login">
-                Fazer Login
-              </Link>
-            </Button>
+            <Link href="/cadastro" className={cn(buttonVariants({ size: "lg" }), "w-full sm:w-auto bg-emerald-600 hover:bg-emerald-700 text-white gap-2")}>
+              Começar gratuitamente <ArrowRight className="h-4 w-4" />
+            </Link>
+            <Link href="/login" className={cn(buttonVariants({ size: "lg", variant: "outline" }), "w-full sm:w-auto border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none hover:bg-foreground/5")}>
+              Fazer Login
+            </Link>
           </div>
         </div>
 
