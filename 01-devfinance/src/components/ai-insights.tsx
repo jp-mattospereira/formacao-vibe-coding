@@ -79,7 +79,7 @@ export function AiInsights({ data }: AiInsightsProps) {
   }
 
   return (
-    <div className="rounded-xl border border-border bg-foreground/5 backdrop-blur-xl p-6 transition-colors duration-300">
+    <div className="rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-6 transition-colors duration-300">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div>
           <h3 className="text-lg font-semibold text-foreground flex items-center gap-2">
@@ -155,3 +155,4 @@ export function AiInsights({ data }: AiInsightsProps) {
     </div>
   );
 }
+

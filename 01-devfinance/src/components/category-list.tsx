@@ -23,7 +23,7 @@ export function CategoryList({
 }: CategoryListProps) {
   if (categories.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-border bg-foreground/5 backdrop-blur-xl p-12 transition-colors duration-300">
+      <div className="flex flex-col items-center justify-center rounded-2xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-12 transition-colors duration-300">
         <div className="flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-emerald-400/20 to-blue-500/20 mb-4">
           <span className="text-3xl">📁</span>
         </div>
@@ -42,7 +42,7 @@ export function CategoryList({
       {categories.map((cat) => (
         <div
           key={cat.id}
-          className="group flex flex-col rounded-xl border border-border bg-foreground/5 backdrop-blur-xl p-5 hover:bg-foreground/[0.08] transition-all duration-200"
+          className="group flex flex-col rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-5 hover:bg-foreground/[0.08] transition-all duration-200"
         >
           <div className="flex items-center justify-between mb-4">
             <div
@@ -117,3 +117,4 @@ export function CategoryList({
     </div>
   );
 }
+

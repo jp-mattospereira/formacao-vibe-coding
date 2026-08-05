@@ -65,7 +65,7 @@ export function DashboardOverview({
       {/* Cards de resumo */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Saldo Total */}
-        <div className="rounded-xl border border-border bg-foreground/5 backdrop-blur-xl p-5 transition-colors duration-300">
+        <div className="rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-5 transition-colors duration-300">
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Saldo Total (Geral)
           </p>
@@ -79,7 +79,7 @@ export function DashboardOverview({
         </div>
         
         {/* Receitas do Mês */}
-        <div className="rounded-xl border border-border bg-foreground/5 backdrop-blur-xl p-5 transition-colors duration-300">
+        <div className="rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-5 transition-colors duration-300">
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Receitas (Mês)
           </p>
@@ -89,7 +89,7 @@ export function DashboardOverview({
         </div>
         
         {/* Despesas do Mês */}
-        <div className="rounded-xl border border-border bg-foreground/5 backdrop-blur-xl p-5 transition-colors duration-300">
+        <div className="rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-5 transition-colors duration-300">
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Despesas (Mês)
           </p>
@@ -99,7 +99,7 @@ export function DashboardOverview({
         </div>
 
         {/* Economia do Mês */}
-        <div className="rounded-xl border border-border bg-foreground/5 backdrop-blur-xl p-5 transition-colors duration-300">
+        <div className="rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-5 transition-colors duration-300">
           <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
             Economia (Mês)
           </p>
@@ -129,7 +129,7 @@ export function DashboardOverview({
       />
 
       {/* Transações Recentes */}
-      <div className="rounded-xl border border-border bg-foreground/5 backdrop-blur-xl p-6 transition-colors duration-300">
+      <div className="rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-6 transition-colors duration-300">
         <h3 className="text-lg font-semibold text-foreground mb-6">Últimas 5 Transações (Mês)</h3>
         
         {recentTransactions.length === 0 ? (
@@ -183,3 +183,4 @@ export function DashboardOverview({
     </div>
   );
 }
+

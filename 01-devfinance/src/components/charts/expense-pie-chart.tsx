@@ -39,7 +39,7 @@ export function ExpensePieChart({ data }: ExpensePieChartProps) {
 
   if (data.length === 0) {
     return (
-      <div className="flex h-[300px] items-center justify-center rounded-xl border border-border bg-foreground/5 transition-colors duration-300">
+      <div className="flex h-[300px] items-center justify-center rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none transition-colors duration-300">
         <p className="text-muted-foreground">Nenhuma despesa neste período.</p>
       </div>
     );
@@ -53,7 +53,7 @@ export function ExpensePieChart({ data }: ExpensePieChartProps) {
   }));
 
   return (
-    <div className="rounded-xl border border-border bg-foreground/5 p-6 backdrop-blur-xl flex flex-col transition-colors duration-300">
+    <div className="rounded-xl border border-border bg-card shadow-sm dark:bg-foreground/5 dark:shadow-none dark:backdrop-blur-xl p-6 flex flex-col transition-colors duration-300">
       <h3 className="text-lg font-semibold text-foreground mb-6">Despesas por Categoria</h3>
       <div className="flex-1 w-full h-[300px]">
         <ChartContainer
