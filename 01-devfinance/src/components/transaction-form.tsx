@@ -172,7 +172,14 @@ export function TransactionForm({
             id="tx-category"
             className="border-border bg-foreground/5 text-foreground focus:ring-emerald-500/50"
           >
-            <SelectValue placeholder="Selecione uma categoria" />
+            <SelectValue placeholder="Selecione uma categoria">
+              {categoryId ? (
+                <span className="flex items-center gap-2">
+                  <span>{categories.find((c) => c.id === categoryId)?.icon}</span>
+                  <span>{categories.find((c) => c.id === categoryId)?.name}</span>
+                </span>
+              ) : null}
+            </SelectValue>
           </SelectTrigger>
           <SelectContent className="border-border bg-background">
             {categories.map((cat) => (
