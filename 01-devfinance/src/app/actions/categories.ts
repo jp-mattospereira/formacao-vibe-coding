@@ -27,28 +27,33 @@ export async function createCategory(data: {
 
   const { name, color, icon } = parsed.data;
 
-  // Check unique name
-  const existing = await prisma.category.findFirst({
-    where: { name, userId },
-  });
+  try {
+    // Check unique name
+    const existing = await prisma.category.findFirst({
+      where: { name, userId },
+    });
 
-  if (existing) {
-    return { error: "Você já possui uma categoria com este nome" };
+    if (existing) {
+      return { success: false, error: "Você já possui uma categoria com este nome" };
+    }
+
+    await prisma.category.create({
+      data: {
+        name,
+        color,
+        icon,
+        isDefault: false,
+        userId,
+      },
+    });
+
+    revalidatePath("/dashboard/categorias");
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao criar categoria:", error);
+    return { success: false, error: "Erro interno ao criar categoria." };
   }
-
-  await prisma.category.create({
-    data: {
-      name,
-      color,
-      icon,
-      isDefault: false,
-      userId,
-    },
-  });
-
-  revalidatePath("/dashboard/categorias");
-  revalidatePath("/dashboard");
-  return { success: true };
 }
 
 export async function updateCategory(
@@ -66,65 +71,75 @@ export async function updateCategory(
     return { error: parsed.error.issues[0].message };
   }
 
-  const existing = await prisma.category.findFirst({
-    where: { id, userId },
-  });
-
-  if (!existing) {
-    return { error: "Categoria não encontrada" };
-  }
-
-  const { name, color, icon } = parsed.data;
-
-  // Check unique name if it changed
-  if (name !== existing.name) {
-    const existingName = await prisma.category.findFirst({
-      where: { name, userId },
+  try {
+    const existing = await prisma.category.findFirst({
+      where: { id, userId },
     });
-    if (existingName) {
-      return { error: "Você já possui uma categoria com este nome" };
+
+    if (!existing) {
+      return { success: false, error: "Categoria não encontrada" };
     }
+
+    const { name, color, icon } = parsed.data;
+
+    // Check unique name if it changed
+    if (name !== existing.name) {
+      const existingName = await prisma.category.findFirst({
+        where: { name, userId },
+      });
+      if (existingName) {
+        return { success: false, error: "Você já possui uma categoria com este nome" };
+      }
+    }
+
+    await prisma.category.update({
+      where: { id },
+      data: { name, color, icon },
+    });
+
+    revalidatePath("/dashboard/categorias");
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao atualizar categoria:", error);
+    return { success: false, error: "Erro interno ao atualizar categoria." };
   }
-
-  await prisma.category.update({
-    where: { id },
-    data: { name, color, icon },
-  });
-
-  revalidatePath("/dashboard/categorias");
-  revalidatePath("/dashboard");
-  return { success: true };
 }
 
 export async function deleteCategory(id: string) {
   const userId = await getUserId();
 
-  const existing = await prisma.category.findFirst({
-    where: { id, userId },
-    include: {
-      _count: {
-        select: { transactions: true },
+  try {
+    const existing = await prisma.category.findFirst({
+      where: { id, userId },
+      include: {
+        _count: {
+          select: { transactions: true },
+        },
       },
-    },
-  });
+    });
 
-  if (!existing) {
-    return { error: "Categoria não encontrada" };
+    if (!existing) {
+      return { success: false, error: "Categoria não encontrada" };
+    }
+
+    if (existing.isDefault) {
+      return { success: false, error: "Categorias padrão não podem ser deletadas" };
+    }
+
+    if (existing._count.transactions > 0) {
+      return { success: false, error: "Esta categoria possui transações vinculadas. Exclua ou reclassifique as transações antes de prosseguir." };
+    }
+
+    await prisma.category.delete({
+      where: { id },
+    });
+
+    revalidatePath("/dashboard/categorias");
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao deletar categoria:", error);
+    return { success: false, error: "Erro interno ao deletar categoria." };
   }
-
-  if (existing.isDefault) {
-    return { error: "Categorias padrão não podem ser deletadas" };
-  }
-
-  if (existing._count.transactions > 0) {
-    return { error: "Esta categoria possui transações vinculadas. Exclua ou reclassifique as transações antes de prosseguir." };
-  }
-
-  await prisma.category.delete({
-    where: { id },
-  });
-
-  revalidatePath("/dashboard/categorias");
-  revalidatePath("/dashboard");
-  return { success: true };
 }

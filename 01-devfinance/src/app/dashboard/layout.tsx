@@ -18,9 +18,9 @@ export default async function DashboardLayout({
     <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       {/* Header */}
       <header className="border-b border-border bg-foreground/5 backdrop-blur-xl transition-colors duration-300">
-        <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between px-6 py-4 gap-4">
-          <div className="flex items-center gap-6">
-            <Link href="/dashboard" className="flex items-center gap-3">
+        <div className="mx-auto flex max-w-7xl flex-col sm:flex-row items-center justify-between px-4 sm:px-6 py-4 gap-4">
+          <div className="flex items-center gap-4 sm:gap-6 w-full sm:w-auto overflow-x-auto pb-2 sm:pb-0">
+            <Link href="/dashboard" className="flex items-center gap-3 shrink-0">
               <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-400 to-blue-500 shadow-lg shadow-emerald-500/25">
                 <span className="text-lg font-bold text-white">$</span>
               </div>
@@ -29,7 +29,7 @@ export default async function DashboardLayout({
               </span>
             </Link>
             
-            <nav className="flex items-center gap-1 sm:gap-2">
+            <nav className="flex items-center gap-1 sm:gap-2 shrink-0">
               <Link
                 href="/dashboard"
                 className="rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground hover:bg-foreground/10 hover:text-foreground transition-all"
@@ -51,8 +51,8 @@ export default async function DashboardLayout({
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-muted-foreground hidden sm:block">
+          <div className="flex items-center gap-4 self-end sm:self-auto">
+            <span className="text-sm text-muted-foreground hidden md:block">
               Olá,{" "}
               <span className="text-foreground font-medium">
                 {session.user.name}
@@ -77,7 +77,7 @@ export default async function DashboardLayout({
       </header>
 
       {/* Content */}
-      <main className="mx-auto max-w-7xl px-6 py-8">{children}</main>
+      <main className="mx-auto max-w-7xl px-4 sm:px-6 py-6 sm:py-8">{children}</main>
     </div>
   );
 }

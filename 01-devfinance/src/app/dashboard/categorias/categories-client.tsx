@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -40,7 +41,10 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
   async function handleCreate(data: { name: string; color: string; icon: string }) {
     const result = await createCategory(data);
     if (result.success) {
+      toast.success("Categoria criada!");
       setShowCreateModal(false);
+    } else {
+      toast.error(result.error || "Erro ao criar categoria");
     }
     return result;
   }
@@ -49,7 +53,10 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
     if (!editingCategory) return { error: "Categoria não encontrada" };
     const result = await updateCategory(editingCategory.id, data);
     if (result.success) {
+      toast.success("Categoria atualizada!");
       setEditingCategory(null);
+    } else {
+      toast.error(result.error || "Erro ao atualizar categoria");
     }
     return result;
   }
@@ -61,9 +68,11 @@ export function CategoriesClient({ categories }: CategoriesClientProps) {
     
     const result = await deleteCategory(deletingCategory.id);
     if (result.success) {
+      toast.success("Categoria excluída!");
       setDeletingCategory(null);
     } else if (result.error) {
       setDeleteError(result.error);
+      toast.error(result.error);
     }
     setIsDeleting(false);
   }

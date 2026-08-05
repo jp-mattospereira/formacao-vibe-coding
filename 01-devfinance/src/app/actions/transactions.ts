@@ -31,17 +31,22 @@ export async function getTransactions(
     where.type = filter;
   }
 
-  const transactions = await prisma.transaction.findMany({
-    where,
-    include: {
-      category: true,
-    },
-    orderBy: {
-      date: "desc",
-    },
-  });
+  try {
+    const transactions = await prisma.transaction.findMany({
+      where,
+      include: {
+        category: true,
+      },
+      orderBy: {
+        date: "desc",
+      },
+    });
 
-  return transactions;
+    return { success: true, data: transactions };
+  } catch (error) {
+    console.error("Erro ao buscar transações:", error);
+    return { success: false, error: "Erro ao buscar as transações." };
+  }
 }
 
 /**
@@ -50,10 +55,16 @@ export async function getTransactions(
 export async function getUserCategories() {
   const userId = await getUserId();
 
-  return prisma.category.findMany({
-    where: { userId },
-    orderBy: { name: "asc" },
-  });
+  try {
+    const categories = await prisma.category.findMany({
+      where: { userId },
+      orderBy: { name: "asc" },
+    });
+    return { success: true, data: categories };
+  } catch (error) {
+    console.error("Erro ao buscar categorias:", error);
+    return { success: false, error: "Erro ao buscar as categorias." };
+  }
 }
 
 /**
@@ -88,19 +99,24 @@ export async function createTransaction(data: {
   // Converte reais para centavos
   const amountInCents = reaisToCentavos(amount);
 
-  await prisma.transaction.create({
-    data: {
-      description,
-      amount: amountInCents,
-      type,
-      date: new Date(date),
-      userId,
-      categoryId,
-    },
-  });
+  try {
+    await prisma.transaction.create({
+      data: {
+        description,
+        amount: amountInCents,
+        type,
+        date: new Date(date),
+        userId,
+        categoryId,
+      },
+    });
 
-  revalidatePath("/dashboard");
-  return { success: true };
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao criar transação:", error);
+    return { success: false, error: "Erro interno ao criar transação." };
+  }
 }
 
 /**
@@ -145,19 +161,24 @@ export async function updateTransaction(
 
   const amountInCents = reaisToCentavos(amount);
 
-  await prisma.transaction.update({
-    where: { id },
-    data: {
-      description,
-      amount: amountInCents,
-      type,
-      date: new Date(date),
-      categoryId,
-    },
-  });
+  try {
+    await prisma.transaction.update({
+      where: { id },
+      data: {
+        description,
+        amount: amountInCents,
+        type,
+        date: new Date(date),
+        categoryId,
+      },
+    });
 
-  revalidatePath("/dashboard");
-  return { success: true };
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao atualizar transação:", error);
+    return { success: false, error: "Erro interno ao atualizar transação." };
+  }
 }
 
 /**
@@ -175,10 +196,15 @@ export async function deleteTransaction(id: string) {
     return { error: "Transação não encontrada" };
   }
 
-  await prisma.transaction.delete({
-    where: { id },
-  });
+  try {
+    await prisma.transaction.delete({
+      where: { id },
+    });
 
-  revalidatePath("/dashboard");
-  return { success: true };
+    revalidatePath("/dashboard");
+    return { success: true };
+  } catch (error) {
+    console.error("Erro ao deletar transação:", error);
+    return { success: false, error: "Erro interno ao deletar transação." };
+  }
 }

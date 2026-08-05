@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -89,8 +90,11 @@ export function DashboardClient({ categories }: DashboardClientProps) {
   }) {
     const result = await createTransaction(data);
     if (result.success) {
+      toast.success("Transação criada com sucesso!");
       setShowCreateModal(false);
       await loadTransactions();
+    } else {
+      toast.error(result.error || "Erro ao criar transação");
     }
     return result;
   }
@@ -105,8 +109,11 @@ export function DashboardClient({ categories }: DashboardClientProps) {
     if (!editingTransaction) return { error: "Transação não encontrada" };
     const result = await updateTransaction(editingTransaction.id, data);
     if (result.success) {
+      toast.success("Transação atualizada com sucesso!");
       setEditingTransaction(null);
       await loadTransactions();
+    } else {
+      toast.error(result.error || "Erro ao atualizar transação");
     }
     return result;
   }
@@ -116,8 +123,11 @@ export function DashboardClient({ categories }: DashboardClientProps) {
     setIsDeleting(true);
     const result = await deleteTransaction(deletingTransaction.id);
     if (result.success) {
+      toast.success("Transação excluída!");
       setDeletingTransaction(null);
       await loadTransactions();
+    } else {
+      toast.error(result.error || "Erro ao excluir transação");
     }
     setIsDeleting(false);
   }

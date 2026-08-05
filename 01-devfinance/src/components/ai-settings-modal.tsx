@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
@@ -46,7 +47,9 @@ export function AiSettingsModal({ open, onOpenChange, onSuccess }: AiSettingsMod
 
     if (result.error) {
       setError(result.error);
+      toast.error(result.error);
     } else {
+      toast.success("Configurações de IA salvas!");
       setApiKey(""); // Limpa o state
       onSuccess();
     }

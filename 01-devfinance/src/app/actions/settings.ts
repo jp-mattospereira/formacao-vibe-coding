@@ -9,12 +9,12 @@ export async function saveAiSettings(provider: string, apiKey: string) {
   try {
     const session = await auth();
     if (!session?.user?.id) {
-      return { error: "Não autorizado" };
+      return { success: false, error: "Não autorizado" };
     }
 
     // Validação básica
     if (!provider || !apiKey) {
-      return { error: "Provedor e API Key são obrigatórios" };
+      return { success: false, error: "Provedor e API Key são obrigatórios" };
     }
 
     // Criptografar a API Key antes de salvar
@@ -32,7 +32,7 @@ export async function saveAiSettings(provider: string, apiKey: string) {
     return { success: true };
   } catch (error: any) {
     console.error("Erro ao salvar configurações de IA:", error);
-    return { error: `Erro: ${error?.message || "Desconhecido"}` };
+    return { success: false, error: `Erro: ${error?.message || "Desconhecido"}` };
   }
 }
 
