@@ -56,8 +56,12 @@ export function DashboardClient({ categories }: DashboardClientProps) {
 
   const loadTransactions = useCallback(async () => {
     setIsLoading(true);
-    const data = await getTransactions(filter);
-    setTransactions(data as Transaction[]);
+    const result = await getTransactions(filter);
+    if (result.success && result.data) {
+      setTransactions(result.data as unknown as Transaction[]);
+    } else {
+      toast.error(result.error || "Erro ao carregar transações");
+    }
     setIsLoading(false);
   }, [filter]);
 
