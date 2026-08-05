@@ -9,10 +9,10 @@ export const metadata = {
 };
 
 interface DashboardProps {
-  searchParams: {
+  searchParams: Promise<{
     month?: string;
     year?: string;
-  };
+  }>;
 }
 
 export default async function DashboardPage({ searchParams }: DashboardProps) {
@@ -25,8 +25,9 @@ export default async function DashboardPage({ searchParams }: DashboardProps) {
   const userId = session.user.id;
   const now = new Date();
   
-  const selectedMonth = searchParams.month ? parseInt(searchParams.month) - 1 : now.getMonth();
-  const selectedYear = searchParams.year ? parseInt(searchParams.year) : now.getFullYear();
+  const { month, year } = await searchParams;
+  const selectedMonth = month ? parseInt(month) - 1 : now.getMonth();
+  const selectedYear = year ? parseInt(year) : now.getFullYear();
   
   const currentDate = new Date(selectedYear, selectedMonth, 1);
   const startOfCurrentMonth = startOfMonth(currentDate);
