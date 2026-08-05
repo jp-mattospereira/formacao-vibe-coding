@@ -57,7 +57,7 @@ export async function generateInsights(data: InsightData) {
         break;
       case "google":
         const google = createGoogleGenerativeAI({ apiKey });
-        model = google("gemini-1.5-flash");
+        model = google("gemini-3.6-flash");
         break;
       default:
         return { error: "Provedor de IA inválido" };
