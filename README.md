@@ -10,7 +10,7 @@ O objetivo deste espaço é registrar a minha evolução prática na construçã
 
 | Módulo / Ferramenta | Projeto | Descrição | Status |
 | :--- | :--- | :--- | :--- |
-| **Fundamentos do Antigravity** | [`01-devfinance`](./01-devfinance) | Dashboard de Finanças Pessoais com IA, gráficos interativos e autenticação | ✅ Concluído |
+| **Fundamentos do Antigravity** | [`01-devfinance`](./devfinance/01-devfinance) | Dashboard de Finanças Pessoais com IA, gráficos interativos e autenticação | ✅ Concluído |
 | **Fundamentos do Antigravity** | [`02-proposta-ai`](./02-proposta-ai) | Proposta AI - Sistema gerador de propostas com IA e banco de dados | ✅ Concluído |
 | **Fundamentos do Claude Code** | *A definir* | Práticas do módulo Claude Code | ⏳ Em breve |
 | **Fundamentos do Lovable** | *A definir* | Práticas do módulo Lovable | ⏳ Em breve |
@@ -31,7 +31,9 @@ O objetivo deste espaço é registrar a minha evolução prática na construçã
 Cada projeto possui sua própria subpasta independente com código-fonte, arquivos de configuração e documentação dedicada. Para rodar um projeto específico, navegue até a pasta do módulo e siga as instruções do `README.md` interno:
 
 ```bash
-cd 01-devfinance
+cd devfinance/01-devfinance
+# ou
+cd 02-proposta-ai
 npm install
 npm run dev
 ```
