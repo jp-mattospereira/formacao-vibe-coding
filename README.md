@@ -10,7 +10,8 @@ O objetivo deste espaço é registrar a minha evolução prática na construçã
 
 | Módulo / Ferramenta | Projeto | Descrição | Status |
 | :--- | :--- | :--- | :--- |
-| **Fundamentos do Antigravity** | [`01-devfinance`](./01-devfinance) | Dashboard de Finanças Pessoais com IA, gráficos interativos e autenticação | 🏗️ Em desenvolvimento |
+| **Fundamentos do Antigravity** | [`01-devfinance`](./01-devfinance) | Dashboard de Finanças Pessoais com IA, gráficos interativos e autenticação | ✅ Concluído |
+| **Fundamentos do Antigravity** | [`02-proposta-ai`](./02-proposta-ai) | Proposta AI - Sistema gerador de propostas com IA e banco de dados | ✅ Concluído |
 | **Fundamentos do Claude Code** | *A definir* | Práticas do módulo Claude Code | ⏳ Em breve |
 | **Fundamentos do Lovable** | *A definir* | Práticas do módulo Lovable | ⏳ Em breve |
 
