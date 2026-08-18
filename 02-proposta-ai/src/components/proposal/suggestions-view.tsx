@@ -106,7 +106,7 @@ export default function SuggestionsView({ proposal }: { proposal: any }) {
           <div className="space-y-2">
             <Label className="text-sm font-semibold text-gray-700">Justificativa da IA</Label>
             <p className="text-sm text-gray-600 bg-gray-50 p-4 rounded-md italic border-l-4 border-[#2563EB]">
-              "{proposal.ai_justification}"
+              &quot;{proposal.ai_justification}&quot;
             </p>
           </div>
 

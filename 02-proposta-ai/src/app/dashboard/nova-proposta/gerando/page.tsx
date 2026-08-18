@@ -9,13 +9,11 @@ function GerandoContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const id = searchParams.get("id")
-  const [error, setError] = useState<string | null>(null)
+  const [error, setError] = useState<string | null>(!id ? "ID da proposta não encontrado." : null)
 
   useEffect(() => {
-    if (!id) {
-      setError("ID da proposta não encontrado.")
-      return
-    }
+    if (!id) return
+
 
     const processAi = async () => {
       try {

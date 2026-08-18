@@ -13,6 +13,7 @@ export const stepClientSchema = z.object({
   client_segment: z.string().min(2, {
     message: "Segmento/área de atuação é obrigatório.",
   }),
+  language: z.string().default("pt-BR"),
 })
 
 export const stepServiceSchema = z.object({

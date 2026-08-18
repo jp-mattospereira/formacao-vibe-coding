@@ -29,7 +29,7 @@ export async function generateProposalSuggestions(proposalId: string) {
 
     // 3. Build AI Prompt
     const prompt = `
-Você é um consultor de negócios especialista em precificação e propostas comerciais no mercado brasileiro.
+Você é um consultor de negócios especialista em precificação e propostas comerciais no mercado B2B.
 Analise os dados abaixo fornecidos pelo usuário e gere sugestões valiosas para a proposta comercial.
 
 Dados do Cliente:
@@ -44,8 +44,11 @@ Dados do Serviço:
 - Complexidade: ${proposal.service_complexity || "Não informado"}
 - Contexto Adicional: ${proposal.additional_context || "Nenhum contexto extra"}
 
-Com base nesses dados, retorne:
-1. Uma faixa de valores em centavos (mínimo, ideal e premium). Ex: R$ 5.000,00 = 500000.
+Diretriz de Localização (MANDATÓRIA):
+Translate and localize all headings, clauses, terms, and date formats to ${proposal.language || 'pt-BR'}, while strictly preserving the business values and currency codes.
+
+Com base nesses dados, retorne as informações no idioma ${proposal.language || 'pt-BR'}:
+1. Uma faixa de valores em centavos (mínimo, ideal e premium). Ex: R$ 5.000,00 = 500000. Mantenha as respostas de valor como inteiros para não quebrar o schema, apenas o texto deve ser traduzido.
 2. Uma justificativa clara do porquê cobrar esse valor.
 3. Uma estrutura de seções recomendada para o PDF da proposta.
 4. O tom de comunicação recomendado.

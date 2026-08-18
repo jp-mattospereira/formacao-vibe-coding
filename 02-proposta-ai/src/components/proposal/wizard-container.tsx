@@ -51,6 +51,7 @@ export function WizardContainer() {
             client_company: data.client_company,
             client_email: data.client_email,
             client_segment: data.client_segment,
+            language: data.language || "pt-BR",
           })
           .select("id")
           .single()
@@ -83,9 +84,9 @@ export function WizardContainer() {
 
       return currentId
     } catch (error) {
-      console.error("Erro ao salvar rascunho:", error)
+      console.error("Erro ao salvar rascunho:", JSON.stringify(error, null, 2))
       // Aqui poderíamos adicionar um toast de erro
-      throw error
+      throw new Error(error?.message || "Erro desconhecido ao salvar o rascunho.")
     }
   }
 

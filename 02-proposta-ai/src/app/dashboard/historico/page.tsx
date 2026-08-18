@@ -29,8 +29,8 @@ export default async function HistoricoPage(props: {
   const sort = typeof searchParams.sort === "string" ? searchParams.sort : "date_desc"
 
   return (
-    <div className="space-y-6">
-      <div>
+    <div className="max-w-7xl mx-auto w-full py-6 px-4 sm:px-6">
+      <div className="mb-6">
         <h1 className="text-2xl font-bold tracking-tight text-[#0B1A2E]">Histórico de Propostas</h1>
         <p className="text-gray-500 mt-1">Gerencie, acompanhe e duplique suas propostas.</p>
       </div>

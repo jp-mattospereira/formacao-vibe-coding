@@ -218,8 +218,8 @@ export function HistoryDataTable({ data, totalPages, currentPage }: HistoryDataT
   return (
     <div className="space-y-4">
       {/* Barra de Ferramentas (Filtros e Busca) */}
-      <div className="flex flex-col sm:flex-row gap-4 justify-between">
-        <div className="relative flex-1 max-w-md">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="relative max-w-md w-full">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-500" />
           <Input
             placeholder="Buscar por cliente ou serviço..."
@@ -229,13 +229,15 @@ export function HistoryDataTable({ data, totalPages, currentPage }: HistoryDataT
           />
         </div>
         
-        <div className="flex gap-2 overflow-x-auto pb-2 sm:pb-0">
+        <div className="flex items-center gap-3 overflow-x-auto pb-2 sm:pb-0">
           <Select value={statusFilter} onValueChange={(val) => handleFilterChange("status", val)}>
-            <SelectTrigger className="w-[140px]">
-              <SelectValue placeholder="Status" />
+            <SelectTrigger className="w-[150px]">
+              <SelectValue placeholder="Status">
+                {statusFilter === "todos" ? "Todos os status" : statusTextMap[statusFilter] || statusFilter}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="todos">Todos Status</SelectItem>
+              <SelectItem value="todos">Todos os status</SelectItem>
               <SelectItem value="rascunho">Rascunho</SelectItem>
               <SelectItem value="preview">Preview da IA</SelectItem>
               <SelectItem value="finalizada">Finalizada</SelectItem>
@@ -243,11 +245,16 @@ export function HistoryDataTable({ data, totalPages, currentPage }: HistoryDataT
           </Select>
 
           <Select value={periodFilter} onValueChange={(val) => handleFilterChange("period", val)}>
-            <SelectTrigger className="w-[140px]">
-              <SelectValue placeholder="Período" />
+            <SelectTrigger className="w-[160px]">
+              <SelectValue placeholder="Período">
+                {periodFilter === "todos" ? "Todos os períodos" : 
+                 periodFilter === "mes" ? "Este mês" : 
+                 periodFilter === "trimestre" ? "Últimos 3 meses" : 
+                 periodFilter === "ano" ? "Este ano" : periodFilter}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="todos">Todo o tempo</SelectItem>
+              <SelectItem value="todos">Todos os períodos</SelectItem>
               <SelectItem value="mes">Este mês</SelectItem>
               <SelectItem value="trimestre">Últimos 3 meses</SelectItem>
               <SelectItem value="ano">Este ano</SelectItem>
@@ -255,8 +262,13 @@ export function HistoryDataTable({ data, totalPages, currentPage }: HistoryDataT
           </Select>
 
           <Select value={sortFilter} onValueChange={(val) => handleFilterChange("sort", val)}>
-            <SelectTrigger className="w-[140px]">
-              <SelectValue placeholder="Ordenar por" />
+            <SelectTrigger className="w-[150px]">
+              <SelectValue placeholder="Ordenar por">
+                {sortFilter === "date_desc" ? "Mais recentes" :
+                 sortFilter === "date_asc" ? "Mais antigas" :
+                 sortFilter === "value_desc" ? "Maior valor" :
+                 sortFilter === "value_asc" ? "Menor valor" : sortFilter}
+              </SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value="date_desc">Mais recentes</SelectItem>
@@ -275,28 +287,28 @@ export function HistoryDataTable({ data, totalPages, currentPage }: HistoryDataT
       </div>
 
       {/* Tabela de Dados */}
-      <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+      <div className="bg-white dark:bg-slate-900 rounded-xl border border-slate-200/80 dark:border-slate-800 shadow-sm overflow-hidden">
         <div className="overflow-x-auto">
           <Table>
             <TableHeader>
-              <TableRow className="bg-gray-50/50">
-                <TableHead className="font-semibold text-gray-700">Cliente / Serviço</TableHead>
-                <TableHead className="font-semibold text-gray-700">Status</TableHead>
-                <TableHead className="font-semibold text-gray-700 text-right">Valor</TableHead>
-                <TableHead className="font-semibold text-gray-700">Criada em</TableHead>
-                <TableHead className="w-[50px]"></TableHead>
+              <TableRow className="bg-slate-50/80 dark:bg-slate-800/50 border-b border-slate-100">
+                <TableHead className="py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Cliente / Serviço</TableHead>
+                <TableHead className="py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Status</TableHead>
+                <TableHead className="text-right py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Valor</TableHead>
+                <TableHead className="py-4 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wider">Criada em</TableHead>
+                <TableHead className="w-[50px] text-right py-4 px-6"></TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {isPending ? (
                 // Skeletons de Loading suaves
                 Array.from({ length: 5 }).map((_, i) => (
-                  <TableRow key={`skeleton-${i}`}>
-                    <TableCell><Skeleton className="h-10 w-48" /></TableCell>
-                    <TableCell><Skeleton className="h-6 w-24 rounded-full" /></TableCell>
-                    <TableCell className="text-right"><Skeleton className="h-6 w-24 ml-auto" /></TableCell>
-                    <TableCell><Skeleton className="h-6 w-32" /></TableCell>
-                    <TableCell><Skeleton className="h-8 w-8 rounded-md" /></TableCell>
+                  <TableRow key={`skeleton-${i}`} className="border-b border-slate-100">
+                    <TableCell className="py-4 px-6"><Skeleton className="h-10 w-48" /></TableCell>
+                    <TableCell className="py-4 px-6"><Skeleton className="h-6 w-24 rounded-full" /></TableCell>
+                    <TableCell className="text-right py-4 px-6"><Skeleton className="h-6 w-24 ml-auto" /></TableCell>
+                    <TableCell className="py-4 px-6"><Skeleton className="h-6 w-32" /></TableCell>
+                    <TableCell className="text-right py-4 px-6"><Skeleton className="h-8 w-8 rounded-md ml-auto" /></TableCell>
                   </TableRow>
                 ))
               ) : data.length === 0 ? (
@@ -304,11 +316,11 @@ export function HistoryDataTable({ data, totalPages, currentPage }: HistoryDataT
                 <TableRow>
                   <TableCell colSpan={5} className="h-64 text-center">
                     <div className="flex flex-col items-center justify-center space-y-3">
-                      <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-2">
-                        <FileText className="h-8 w-8 text-gray-300" />
+                      <div className="w-16 h-16 bg-slate-50 rounded-full flex items-center justify-center mb-2">
+                        <FileText className="h-8 w-8 text-slate-300" />
                       </div>
-                      <p className="text-gray-500 font-medium text-lg">Nenhuma proposta encontrada</p>
-                      <p className="text-gray-400 text-sm max-w-sm mb-4">
+                      <p className="text-slate-500 font-medium text-lg">Nenhuma proposta encontrada</p>
+                      <p className="text-slate-400 text-sm max-w-sm mb-4">
                         {(searchQuery || statusFilter !== "todos" || periodFilter !== "todos") 
                           ? "Tente limpar os filtros para ver mais resultados." 
                           : "Você ainda não criou nenhuma proposta comercial."}
@@ -325,33 +337,33 @@ export function HistoryDataTable({ data, totalPages, currentPage }: HistoryDataT
                 data.map((row) => (
                   <TableRow 
                     key={row.id} 
-                    className="group cursor-pointer hover:bg-gray-50 transition-colors"
+                    className="group cursor-pointer border-b border-slate-100 hover:bg-slate-50/80 transition-colors"
                     onClick={() => handleRowClick(row.id, row.status)}
                   >
-                    <TableCell className="max-w-[200px] sm:max-w-[300px]">
-                      <div className="font-medium text-gray-900 truncate">
+                    <TableCell className="py-4 px-6 max-w-[200px] sm:max-w-[300px]">
+                      <div className="font-medium text-slate-900 truncate">
                         {row.client_name || "Cliente não definido"}
                       </div>
-                      <div className="text-sm text-gray-500 truncate">
+                      <div className="text-xs text-slate-500 truncate mt-0.5">
                         {row.service_description || "Sem descrição"}
                       </div>
                     </TableCell>
-                    <TableCell>
+                    <TableCell className="py-4 px-6">
                       <Badge 
                         variant="secondary"
-                        className={`
-                          ${row.status === 'rascunho' ? 'bg-gray-100 text-gray-700 hover:bg-gray-100' : ''}
-                          ${row.status === 'preview' ? 'bg-amber-100 text-amber-800 hover:bg-amber-100' : ''}
-                          ${row.status === 'finalizada' ? 'bg-green-100 text-green-800 hover:bg-green-100' : ''}
+                        className={`font-medium
+                          ${row.status === 'rascunho' ? 'bg-slate-100 text-slate-700 hover:bg-slate-200/80' : ''}
+                          ${row.status === 'preview' ? 'bg-amber-50 text-amber-700 hover:bg-amber-100/80 border border-amber-200/50' : ''}
+                          ${row.status === 'finalizada' ? 'bg-emerald-50 text-emerald-700 hover:bg-emerald-100/80 border border-emerald-200/50' : ''}
                         `}
                       >
                         {statusTextMap[row.status] || row.status}
                       </Badge>
                     </TableCell>
-                    <TableCell className="text-right font-medium text-gray-900">
+                    <TableCell className="text-right py-4 px-6 font-medium text-slate-900">
                       {formatCurrency(getValueToShow(row))}
                     </TableCell>
-                    <TableCell className="text-sm text-gray-500">
+                    <TableCell className="text-sm text-slate-500 py-4 px-6">
                       <span className="hidden sm:inline">
                         {new Date(row.created_at).toLocaleDateString("pt-BR", {
                           day: "2-digit", month: "short", year: "numeric"
@@ -361,9 +373,9 @@ export function HistoryDataTable({ data, totalPages, currentPage }: HistoryDataT
                         {formatDistanceToNow(new Date(row.created_at), { addSuffix: true, locale: ptBR })}
                       </span>
                     </TableCell>
-                    <TableCell onClick={(e) => e.stopPropagation()}>
+                    <TableCell className="text-right py-4 px-6" onClick={(e) => e.stopPropagation()}>
                       <DropdownMenu>
-                        <DropdownMenuTrigger className="inline-flex items-center justify-center rounded-md hover:bg-gray-100 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity">
+                        <DropdownMenuTrigger className="inline-flex items-center justify-center rounded-md hover:bg-slate-100 h-8 w-8 p-0 text-slate-500 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-opacity">
                           <span className="sr-only">Abrir menu</span>
                           <MoreHorizontal className="h-4 w-4" />
                         </DropdownMenuTrigger>

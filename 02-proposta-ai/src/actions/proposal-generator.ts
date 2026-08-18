@@ -53,10 +53,13 @@ export async function generateFinalProposal(proposalId: string) {
     const formattedValue = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(value / 100)
 
     // Estruturar o mega-prompt
-    const systemPrompt = `Você é um fechador de negócios e redator comercial de elite. Seu trabalho é redigir uma PROPOSTA COMERCIAL impecável em Markdown.
+    const systemPrompt = `Você é um fechador de negócios e redator comercial de elite no mercado B2B. Seu trabalho é redigir uma PROPOSTA COMERCIAL impecável em Markdown.
 Use um tom: ${tone}.
 
-Crie uma proposta atraente e detalhada para o seguinte cenário:
+Diretriz de Localização (MANDATÓRIA):
+Translate and localize all headings, clauses, terms, and date formats to ${proposal.language || 'pt-BR'}, while strictly preserving the business values and currency codes.
+
+Crie uma proposta atraente e detalhada para o seguinte cenário, escrevendo inteiramente no idioma ${proposal.language || 'pt-BR'}:
 - Cliente: ${clientName} (${clientCompany})
 - Serviço Solicitado: ${serviceDesc}
 - Complexidade: ${complexity}
@@ -64,7 +67,7 @@ Crie uma proposta atraente e detalhada para o seguinte cenário:
 - Valor do Investimento aprovado pelo profissional: ${formattedValue}
 ${proposal.user_notes ? `- Notas importantes do profissional: ${proposal.user_notes}` : ""}
 
-Seções obrigatórias que devem constar no Markdown (use títulos H2 e H3 adequados):
+Seções obrigatórias que devem constar no Markdown (use títulos H2 e H3 adequados e traduza para o idioma solicitado):
 1. Cabeçalho (Para: ${clientName}, De: ${professionalName} / ${professionalCompany})
 2. Introdução (Personalizada, focada em agilidade logística e resolução do problema do cliente)
 3. Escopo Detalhado
@@ -169,5 +172,26 @@ export async function finalizeProposalStatus(proposalId: string) {
     return { success: true }
   } catch (error: any) {
     return { success: false, error: "Erro interno." }
+  }
+}
+
+export async function updateProposalContent(proposalId: string, newContent: string) {
+  try {
+    const supabase = await createClient()
+
+    const { error } = await supabase
+      .from("proposals")
+      .update({ final_proposal_content: newContent })
+      .eq("id", proposalId)
+
+    if (error) {
+      console.error("Erro ao salvar conteúdo:", error)
+      return { success: false, error: "Erro ao salvar alterações no banco." }
+    }
+
+    revalidatePath(`/dashboard/nova-proposta/final?id=${proposalId}`)
+    return { success: true }
+  } catch (error: any) {
+    return { success: false, error: "Erro interno ao salvar." }
   }
 }

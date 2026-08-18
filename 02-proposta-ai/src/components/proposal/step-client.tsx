@@ -6,6 +6,7 @@ import { StepClientValues, stepClientSchema } from "@/lib/validations/proposal"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 interface StepClientProps {
   initialData?: Partial<StepClientValues>
@@ -20,6 +21,7 @@ export function StepClient({ initialData, onNext }: StepClientProps) {
       client_company: initialData?.client_company || "",
       client_email: initialData?.client_email || "",
       client_segment: initialData?.client_segment || "",
+      language: initialData?.language || "pt-BR",
     },
   })
 
@@ -78,6 +80,32 @@ export function StepClient({ initialData, onNext }: StepClientProps) {
                 <FormControl>
                   <Input placeholder="Ex: Tecnologia, Varejo, Saúde" {...field} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="language"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Idioma da Proposta</FormLabel>
+                <Select onValueChange={field.onChange} value={field.value || "pt-BR"}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Selecione o idioma" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="pt-BR">Português (Brasil)</SelectItem>
+                    <SelectItem value="en-US">Inglês</SelectItem>
+                    <SelectItem value="es-ES">Espanhol</SelectItem>
+                    <SelectItem value="fr-FR">Francês</SelectItem>
+                    <SelectItem value="de-DE">Alemão</SelectItem>
+                    <SelectItem value="it-IT">Italiano</SelectItem>
+                  </SelectContent>
+                </Select>
                 <FormMessage />
               </FormItem>
             )}

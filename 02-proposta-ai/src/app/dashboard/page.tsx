@@ -109,7 +109,7 @@ export default async function DashboardHome() {
             </div>
           ) : (
             <CardContent className="p-6 text-center text-gray-500 py-12">
-              Nenhuma proposta recente encontrada. Clique em "Nova Proposta" para começar.
+              Nenhuma proposta recente encontrada. Clique em &quot;Nova Proposta&quot; para começar.
             </CardContent>
           )}
         </Card>
